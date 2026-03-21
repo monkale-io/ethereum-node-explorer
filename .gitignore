@@ -1,0 +1,33 @@
+node_modules
+dist
+*.local
+.env
+.env.*
+.cursor/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+coverage
+cypress/videos
+cypress/screenshots
+
+# Build
+*.tsbuildinfo
+
+# Hardhat
+cache
+artifacts
+
+# IPFS
+.ipfs-cid
+.ipfs-cli/
+Taskfile.yml

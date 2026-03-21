@@ -1,0 +1,42 @@
+# Page snapshot
+
+```yaml
+- generic:
+  - generic:
+    - generic:
+      - banner:
+        - generic:
+          - generic:
+            - link:
+              - /url: "#/"
+              - generic: M
+              - generic: Monkale Ethereum Node Explorer
+          - generic:
+            - button:
+              - img
+            - button:
+              - img
+            - link:
+              - /url: https://github.com
+              - img
+      - main:
+        - generic:
+          - paragraph: Add your JSON-RPC endpoint to explore blocks, transactions, and accounts on your chain.
+          - button:
+            - img
+            - text: Configure RPC Endpoint
+  - dialog "Configure RPC Endpoint" [ref=e2]:
+    - generic [ref=e3]:
+      - heading "Configure RPC Endpoint" [level=2] [ref=e4]
+      - paragraph [ref=e5]: Enter the URL of your Ethereum JSON-RPC node.
+    - generic [ref=e7]:
+      - generic [ref=e8]: RPC URL
+      - textbox "RPC URL" [active] [ref=e9]:
+        - /placeholder: http://localhost:8545
+    - generic [ref=e10]:
+      - button "Test Connection" [disabled]
+      - button "Save" [disabled]
+    - button "Close" [ref=e11]:
+      - img
+      - generic [ref=e12]: Close
+```
