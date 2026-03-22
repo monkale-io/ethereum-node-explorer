@@ -8,14 +8,6 @@ No backend, no servers, no databases, no third parties: your browser talks strai
 
 The app runs entirely in the browser. RPC URL stored in localStorage; all chain data comes from JSON-RPC calls from the user’s machine.
 
-<details>
-<summary>Current IPFS CID</summary>
-
-Current IPFS CID: `QmVLCD2NowyhsqVrKaXmaweV9q9k86CjrCuZLkbUXyarSP`
-
-</details>
-
-
 ## Features
 
 - Browse blocks, transactions, and accounts on any Ethereum-compatible chain
@@ -58,11 +50,16 @@ Please read docs first.
 
 To make the app always reachable you can help to pin the current version.
 
+<details>
+<summary>Current IPFS CID</summary>
+
+`QmVLCD2NowyhsqVrKaXmaweV9q9k86CjrCuZLkbUXyarSP`
+
+</details>
+
 ### Donations
 
-Just if you really want! :)
-
-ERC20 `0x9dB5A2E4F4fe24c113E204003fB22D8D67d2d551`
+ERC20 `monkale.eth`
 
 ## Contact
 
