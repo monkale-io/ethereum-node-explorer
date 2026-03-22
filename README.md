@@ -58,6 +58,9 @@ ERC20 `monkale.eth`
 * [Farcaster](https://farcaster.xyz/nikolayz.eth)
 
 ## License
+
 This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
+
 Copyright (C) 2026 monkale.io
+
 See `LICENSE` for the full text.
