@@ -4,18 +4,9 @@
 
 Light, serverless IPFS-hosted Ethereum explorer app that connects directly to your Ethereum JSON-RPC node. Intended to be fast and handy for Ethereum node runners without the need to run it yourself. 
 
-No backend, no servers, no databases, no third parties: your browser talks straight to the node you configure.
+No backend, no servers, no databases, no third parties: your browser queries the node you configure for all chain data.
 
-The app runs entirely in the browser. RPC URL stored in localStorage; all chain data comes from JSON-RPC calls from the user’s machine.
-
-## Features
-
-- Browse blocks, transactions, and accounts on any Ethereum-compatible chain
-- Unified live dashboard (node status + latest blocks + tx-count chart) with a short poll interval
-- Configurable RPC endpoint stored in browser localStorage
-- Dark / light / system theme
-- Single-file HTML build for IPFS deployment
-- Responsive UI with light motion and reduced-motion support
+So far the application is capable to browse blocks, transactions, and accounts on any Ethereum-compatible chain
 
 ## How to Use
 
