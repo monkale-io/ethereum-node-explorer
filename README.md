@@ -6,7 +6,7 @@ Light, serverless IPFS-hosted Ethereum explorer app that connects directly to yo
 
 No backend, no servers, no databases, no third parties: your browser queries the node you configure for all chain data.
 
-So far the application is capable to browse blocks, transactions, and accounts on any Ethereum-compatible chain
+So far the application is capable to browse blocks, transactions, and accounts on any Ethereum-compatible chain.
 
 ## How to Use
 
