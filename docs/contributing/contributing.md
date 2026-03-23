@@ -35,9 +35,9 @@ If you have an idea for an enhancement or a new feature, please open an issue an
 
 ### Submitting Pull Requests
 
-All new features and bug fixes should be developed in a dedicated branch created from the current target branch, and pull requests should be submitted to the appropriate branch for review.
+The `develop` branch is used for ongoing development and should always be in sync with the `main` branch. All new features and bug fixes should be developed in feature branches created from `develop`, and pull requests should be submitted to the `develop` branch.
 
-1. Fork the repository and create your branch from the current target branch.
+1. Fork the repository and create your branch from `develop`.
 2. Ensure your code follows the project's coding standards.
 3. If you have added or changed functionality, update the documentation accordingly.
 4. Add or update automated tests when production behavior changes.
@@ -49,13 +49,17 @@ npm run build
 ```
 
 6. Commit your changes with a descriptive commit message.
-7. Push your branch to your fork and open a Pull Request.
+7. Push your branch to your fork and open a Pull Request to the `develop` branch of the repository.
 
 Please ensure your pull request adheres to the following guidelines:
 - Provide a clear description of what your pull request does.
 - Include the issue number if your pull request addresses a specific issue.
 - Review the changes to make sure they are well-tested and documented.
 - Include screenshots or recordings when the change affects the UI.
+
+The repository owner will:
+1. Review and test the changes.
+2. Merge the changes into the `main` branch after successful review and testing in the next version release.
 
 ## Development Setup
 
