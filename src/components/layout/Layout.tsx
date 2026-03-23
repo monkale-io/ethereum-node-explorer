@@ -9,8 +9,8 @@ export function Layout() {
         <Outlet />
       </main>
       <footer className="border-t py-4 mt-auto">
-        <div className="mx-auto flex max-w-6xl items-center justify-center px-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-1 px-4 sm:flex-row sm:gap-3 text-sm text-muted-foreground">
+          <p>
             Released under the{" "}
             <a
               href="https://www.gnu.org/licenses/gpl-3.0.en.html#license-text"
@@ -21,6 +21,8 @@ export function Layout() {
               GNU General Public License v3.0
             </a>
           </p>
+          <span className="hidden sm:inline text-muted-foreground/40">•</span>
+          <p className="font-mono text-xs opacity-75">v{__APP_VERSION__}</p>
         </div>
       </footer>
     </div>
