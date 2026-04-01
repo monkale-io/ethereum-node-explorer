@@ -35,7 +35,7 @@ Contributiongs are welcome. Suggest features, solve bugs and more.
 Please read docs first. 
 
 - [Local Development](docs/contributing/local-development.md)
-- [Contributing Guide](docs/contributing/contributing.md)
+- [Contributing Guide](CONTRIBUTING.md)
 
 ### IPFS pinning
 

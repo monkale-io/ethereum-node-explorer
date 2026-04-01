@@ -14,7 +14,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Code of Conduct
 
-Please read and follow our [Code of Conduct](code-of-conduct.md) to keep our community approachable and respectful.
+Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) to keep our community approachable and respectful.
 
 ## How to Contribute
 
@@ -63,12 +63,12 @@ The repository owner will:
 
 ## Development Setup
 
-For local setup and validation details, see [local-development.md](local-development.md).
+For local setup and validation details, see [local-development.md](docs/contributing/local-development.md).
 
 ## Style Guides
 
-For repository-specific engineering rules and coding conventions, see [style-guides.md](style-guides.md).
+For repository-specific engineering rules and coding conventions, see [style-guides.md](docs/contributing/style-guides.md).
 
 ## AI Policy
 
-If you use AI tools while contributing, follow [ai-policy.md](ai-policy.md).
+If you use AI tools while contributing, follow [ai-policy.md](docs/contributing/ai-policy.md).
