@@ -8,6 +8,10 @@ No backend, no servers, no databases, no third parties: your browser queries the
 
 So far the application is capable to browse blocks, transactions, and accounts on any Ethereum-compatible chain.
 
+![Dashboard overview](docs/screenshots/dashboard.png)
+
+![Transaction details page](docs/screenshots/transaction-details.png)
+
 ## How to Use
 
 Open the explorer in your browser:
@@ -16,6 +20,8 @@ Open the explorer in your browser:
 - Without ENS support: [nodex.monkale.eth.limo](https://nodex.monkale.eth.limo)
 
 After opening the app, choose **Configure RPC Endpoint**, enter your Ethereum JSON-RPC URL, and start exploring blocks, transactions, and accounts.
+
+![Configure RPC endpoint](docs/screenshots/configure-rpc.png)
 
 ## Tech Stack
 
