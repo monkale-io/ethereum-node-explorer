@@ -50,7 +50,7 @@ describe("useEthereum", () => {
     mockUrl = "http://other:8545";
     rerender();
 
-    // Since we mutate in place via reconfigure, it is the same instance, but reconfigured.
-    expect(result.current).toBe(firstInstance);
+    // Since we recreate the instance via useMemo, it is a different instance
+    expect(result.current).not.toBe(firstInstance);
   });
 });

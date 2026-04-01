@@ -26,6 +26,10 @@ vi.mock("viem", async () => {
       }),
       getBalance: vi.fn().mockResolvedValue(5000000000000000000n),
       getCode: vi.fn().mockResolvedValue("0x"),
+      getEnsAddress: vi.fn().mockImplementation(({ name }: { name: string }) => {
+        if (name === "vitalik.eth") return Promise.resolve("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
+        return Promise.resolve(null);
+      }),
       request: vi.fn().mockImplementation(({ method }: { method: string }) => {
         if (method === "eth_syncing") return Promise.resolve(false);
         if (method === "net_peerCount") return Promise.resolve("0x19");
@@ -93,6 +97,16 @@ describe("EthereumService", () => {
   it("getCode returns hex code", async () => {
     const code = await service.getCode("0x123" as `0x${string}`);
     expect(code).toBe("0x");
+  });
+
+  it("resolveEnsName returns address for valid name", async () => {
+    const address = await service.resolveEnsName("vitalik.eth");
+    expect(address).toBe("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
+  });
+
+  it("resolveEnsName returns null for unknown name", async () => {
+    const address = await service.resolveEnsName("unknown.eth");
+    expect(address).toBeNull();
   });
 
   it("reconfigure does not throw", () => {

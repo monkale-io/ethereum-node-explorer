@@ -55,6 +55,10 @@ export class EthereumService {
     return code ?? "0x";
   }
 
+  async resolveEnsName(name: string): Promise<Address | null> {
+    return this.client.getEnsAddress({ name });
+  }
+
   async getChainId(): Promise<number> {
     return this.client.getChainId();
   }

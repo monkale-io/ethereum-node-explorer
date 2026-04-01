@@ -37,11 +37,12 @@ export function timeAgo(timestamp: bigint): string {
 
 export function detectSearchInput(
   input: string,
-): "block" | "transaction" | "address" | "unknown" {
+): "block" | "transaction" | "address" | "ens" | "unknown" {
   const trimmed = input.trim();
   if (/^\d+$/.test(trimmed)) return "block";
   if (/^0x[0-9a-fA-F]{64}$/.test(trimmed)) return "transaction";
   if (/^0x[0-9a-fA-F]{40}$/.test(trimmed)) return "address";
+  if (/^[a-z0-9-]+(\.[a-z0-9-]+)*\.eth$/i.test(trimmed)) return "ens";
   return "unknown";
 }
 

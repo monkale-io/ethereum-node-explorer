@@ -11,7 +11,15 @@ const ThrowError = () => {
 const originalError = console.error;
 beforeAll(() => {
   console.error = (...args) => {
-    if (args[0] && args[0].includes("ErrorBoundary caught")) return;
+    // Suppress our custom ErrorBoundary log
+    if (typeof args[0] === "string" && args[0].includes("ErrorBoundary caught")) return;
+    
+    // Suppress React's component stack trace log
+    if (typeof args[0] === "string" && args[0].includes("The above error occurred in the <ThrowError> component")) return;
+    
+    // Suppress React's native Error object log
+    if (args[0] instanceof Error && args[0].message === "Test error") return;
+
     originalError(...args);
   };
 });

@@ -68,8 +68,15 @@ describe("format utilities", () => {
     it("detects addresses", () => {
       expect(detectSearchInput("0x742d35Cc6634C0532925a3b844Bc454e4438f44e")).toBe("address");
     });
+    it("detects ens names", () => {
+      expect(detectSearchInput("vitalik.eth")).toBe("ens");
+      expect(detectSearchInput("foo.bar.eth")).toBe("ens");
+      expect(detectSearchInput("123.eth")).toBe("ens");
+    });
     it("detects unknown", () => {
       expect(detectSearchInput("invalid")).toBe("unknown");
+      expect(detectSearchInput("vitalik.com")).toBe("unknown");
+      expect(detectSearchInput("notens")).toBe("unknown");
     });
   });
 

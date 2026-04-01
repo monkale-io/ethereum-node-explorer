@@ -114,6 +114,54 @@ describe("Monkale Ethereum Node Explorer", () => {
     cy.contains(testAddress, { matchCase: false }).should("be.visible");
   });
 
+  it("search functionality handles ENS name resolution", () => {
+    setupRPC();
+
+    // Intercept eth_call for ENS resolution (Universal Resolver)
+    cy.intercept("POST", HARDHAT_RPC, (req) => {
+      const postData = req.body;
+      if (postData.method === "eth_call") {
+        // Return ABI-encoded vitalik.eth address (0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045)
+        // viem's getEnsAddress decodes this specific hex format
+        req.reply({
+          jsonrpc: "2.0",
+          id: postData.id,
+          result: "0x0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000cc14892dd5bce77521a1bc6831d11f5d6f85b62b0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa96045",
+        });
+      } else {
+        req.continue();
+      }
+    });
+
+    cy.get("input[placeholder*='tx hash']").first().clear().type("vitalik.eth{enter}");
+
+    // Should navigate to the resolved address
+    cy.url().should("match", /\/account\/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045/i);
+    cy.contains(/Account Details/i).should("be.visible");
+  });
+
+  it("search functionality shows error for unknown ENS name", () => {
+    setupRPC();
+
+    cy.intercept("POST", HARDHAT_RPC, (req) => {
+      const postData = req.body;
+      if (postData.method === "eth_call") {
+        // Return generic 0x0 array for not found
+        req.reply({
+          jsonrpc: "2.0",
+          id: postData.id,
+          result: "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        });
+      } else {
+        req.continue();
+      }
+    });
+
+    cy.get("input[placeholder*='tx hash']").first().clear().type("unknown.eth{enter}");
+
+    cy.contains("ENS name not found").should("be.visible");
+  });
+
   it("navigates using block pagination buttons", () => {
     setupRPC();
 

@@ -44,7 +44,7 @@ To make the app always reachable you can help to pin the current version.
 <details>
 <summary>Current IPFS CID</summary>
 
-`QmSASFt3bXuBZdoaeSnLsCT9f4RoqjScECgo2s2y9aKodc`
+`QmavcCur7RGt61Se6jM1r1e1Y3QAx6fbqMzRq48wzMNYRq`
 
 </details>
 

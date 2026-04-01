@@ -1,4 +1,4 @@
-import { Github, Settings } from "lucide-react";
+import { Code2, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
@@ -42,7 +42,7 @@ export function Header() {
             <ThemeToggle />
             <Button variant="ghost" size="icon" asChild aria-label="GitHub">
               <a href="https://github.com/monkale-io/ethereum-node-explorer" target="_blank" rel="noopener noreferrer">
-                <Github className="h-5 w-5" />
+                <Code2 className="h-5 w-5" />
               </a>
             </Button>
           </div>
@@ -72,7 +72,7 @@ export function Header() {
           <ThemeToggle />
           <Button variant="ghost" size="icon" asChild aria-label="View source on GitHub">
             <a href="https://github.com/monkale-io/ethereum-node-explorer" target="_blank" rel="noopener noreferrer">
-              <Github className="h-5 w-5" />
+              <Code2 className="h-5 w-5" />
             </a>
           </Button>
         </div>
