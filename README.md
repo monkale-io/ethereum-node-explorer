@@ -14,12 +14,16 @@ So far the application is capable to browse blocks, transactions, and accounts o
 
 ## How to Use
 
-Open the explorer in your browser:
+This explorer is installation-free and serverless by design. The app is a simple `index.html` file shared over the IPFS network, and all logic runs locally in your browser.
+
+You can open it directly in your browser:
 
 - With an ENS-enabled browser: [nodex.monkale.eth](https://nodex.monkale.eth)
 - Without ENS support: [nodex.monkale.eth.limo](https://nodex.monkale.eth.limo)
 
-After opening the app, choose **Configure RPC Endpoint**, enter your Ethereum JSON-RPC URL, and start exploring blocks, transactions, and accounts.
+You need direct access to your Ethereum node. After opening the app, choose **Configure RPC Endpoint**, enter your Ethereum JSON-RPC URL, and start exploring blocks, transactions, and accounts.
+
+If you want to compile your own version instead, see [Build instructions](docs/contributing/local-development.md#build).
 
 ![Configure RPC endpoint](docs/screenshots/configure-rpc.png)
 
