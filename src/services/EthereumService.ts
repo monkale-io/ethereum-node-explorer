@@ -59,6 +59,19 @@ export class EthereumService {
     return this.client.getEnsAddress({ name });
   }
 
+  async getContractName(address: Address): Promise<string | null> {
+    try {
+      const result = await this.client.readContract({
+        address,
+        abi: [{ type: "function", name: "name", inputs: [], outputs: [{ type: "string" }], stateMutability: "view" }],
+        functionName: "name",
+      });
+      return result as string;
+    } catch {
+      return null;
+    }
+  }
+
   async getChainId(): Promise<number> {
     return this.client.getChainId();
   }

@@ -26,6 +26,12 @@ vi.mock("viem", async () => {
       }),
       getBalance: vi.fn().mockResolvedValue(5000000000000000000n),
       getCode: vi.fn().mockResolvedValue("0x"),
+      readContract: vi.fn().mockImplementation(({ address, functionName }) => {
+        if (address === "0x5fbdb2315678afecb367f032d93f642f64180aa3" && functionName === "name") {
+          return Promise.resolve("TestToken");
+        }
+        return Promise.reject(new Error("Contract call failed"));
+      }),
       getEnsAddress: vi.fn().mockImplementation(({ name }: { name: string }) => {
         if (name === "vitalik.eth") return Promise.resolve("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
         return Promise.resolve(null);
@@ -107,6 +113,12 @@ describe("EthereumService", () => {
   it("resolveEnsName returns null for unknown name", async () => {
     const address = await service.resolveEnsName("unknown.eth");
     expect(address).toBeNull();
+  });
+
+  it("getContractName returns string for valid token", async () => {
+    // The mocked createPublicClient returns "TestToken" for this specific address
+    const name = await service.getContractName("0x5fbdb2315678afecb367f032d93f642f64180aa3");
+    expect(name).toBe("TestToken");
   });
 
   it("reconfigure does not throw", () => {
