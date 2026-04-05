@@ -4,7 +4,7 @@
 
 Light, serverless IPFS-hosted Ethereum explorer app that connects directly to your Ethereum JSON-RPC node. Intended to be fast and handy for Ethereum node runners without the need to run it yourself. 
 
-No backend, no servers, no databases, no third parties: your browser queries the node you configure for all chain data.
+No backend, no servers, and no required third-party infrastructure: your browser queries the node you configure for chain data. Some optional UX features, such as unknown event signature resolution, can use public metadata services when enabled in settings.
 
 So far the application is capable to browse blocks, transactions, and accounts on any Ethereum-compatible chain.
 
@@ -50,7 +50,7 @@ To make the app always reachable you can help to pin the current version.
 <details>
 <summary>Current IPFS CID</summary>
 
-`QmavcCur7RGt61Se6jM1r1e1Y3QAx6fbqMzRq48wzMNYRq`
+`QmPtAhbyNEjbbtkqu3G1PSXimRePKX7WVYShjB45gR6Vpe`
 
 </details>
 

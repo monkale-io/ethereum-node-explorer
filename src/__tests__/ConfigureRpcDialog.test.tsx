@@ -12,13 +12,21 @@ vi.mock("../services/EthereumService", () => ({
   EthereumService: vi.fn(function() { return {}; }),
 }));
 
+const baseStore = {
+  rpcUrl: "http://old",
+  dialogOpen: true,
+  use4byte: true,
+  setRpcUrl: vi.fn(),
+  setDialogOpen: vi.fn(),
+  setUse4byte: vi.fn(),
+};
+
 describe("ConfigureRpcDialog", () => {
   it("renders and tests connection successfully", async () => {
     const setRpcUrlMock = vi.fn();
     const setDialogOpenMock = vi.fn();
     (useConfigStore as any).mockReturnValue({
-      rpcUrl: "http://old",
-      dialogOpen: true,
+      ...baseStore,
       setRpcUrl: setRpcUrlMock,
       setDialogOpen: setDialogOpenMock,
     });
@@ -48,12 +56,7 @@ describe("ConfigureRpcDialog", () => {
   });
 
   it("handles test connection error", async () => {
-    (useConfigStore as any).mockReturnValue({
-      rpcUrl: "http://old",
-      dialogOpen: true,
-      setRpcUrl: vi.fn(),
-      setDialogOpen: vi.fn(),
-    });
+    (useConfigStore as any).mockReturnValue({ ...baseStore });
 
     const mockTestConnection = vi.fn().mockResolvedValue({ success: false, error: "Network Error" });
     (EthereumService as any).mockImplementation(function() {
@@ -77,8 +80,7 @@ describe("ConfigureRpcDialog", () => {
     const setRpcUrlMock = vi.fn();
     const setDialogOpenMock = vi.fn();
     (useConfigStore as any).mockReturnValue({
-      rpcUrl: "http://old",
-      dialogOpen: true,
+      ...baseStore,
       setRpcUrl: setRpcUrlMock,
       setDialogOpen: setDialogOpenMock,
     });
@@ -90,5 +92,51 @@ describe("ConfigureRpcDialog", () => {
 
     expect(setRpcUrlMock).toHaveBeenCalledWith("");
     expect(setDialogOpenMock).toHaveBeenCalledWith(false);
+  });
+
+  it("renders 4byte toggle checkbox and description", () => {
+    (useConfigStore as any).mockReturnValue({ ...baseStore, use4byte: true });
+    render(<ConfigureRpcDialog />);
+
+    expect(screen.getByLabelText(/Resolve unknown events via 4byte.directory/i)).toBeInTheDocument();
+    expect(screen.getByText(/human-readable/i)).toBeInTheDocument();
+  });
+
+  it("checkbox is checked when use4byte is true", () => {
+    (useConfigStore as any).mockReturnValue({ ...baseStore, use4byte: true });
+    render(<ConfigureRpcDialog />);
+
+    const checkbox = screen.getByLabelText(/Resolve unknown events via 4byte.directory/i);
+    expect(checkbox).toBeChecked();
+  });
+
+  it("checkbox is unchecked when use4byte is false", () => {
+    (useConfigStore as any).mockReturnValue({ ...baseStore, use4byte: false });
+    render(<ConfigureRpcDialog />);
+
+    const checkbox = screen.getByLabelText(/Resolve unknown events via 4byte.directory/i);
+    expect(checkbox).not.toBeChecked();
+  });
+
+  it("clicking checkbox calls setUse4byte(false) when currently true", () => {
+    const setUse4byteMock = vi.fn();
+    (useConfigStore as any).mockReturnValue({ ...baseStore, use4byte: true, setUse4byte: setUse4byteMock });
+    render(<ConfigureRpcDialog />);
+
+    const checkbox = screen.getByLabelText(/Resolve unknown events via 4byte.directory/i);
+    fireEvent.click(checkbox);
+
+    expect(setUse4byteMock).toHaveBeenCalledWith(false);
+  });
+
+  it("clicking checkbox calls setUse4byte(true) when currently false", () => {
+    const setUse4byteMock = vi.fn();
+    (useConfigStore as any).mockReturnValue({ ...baseStore, use4byte: false, setUse4byte: setUse4byteMock });
+    render(<ConfigureRpcDialog />);
+
+    const checkbox = screen.getByLabelText(/Resolve unknown events via 4byte.directory/i);
+    fireEvent.click(checkbox);
+
+    expect(setUse4byteMock).toHaveBeenCalledWith(true);
   });
 });

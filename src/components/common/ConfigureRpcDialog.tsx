@@ -17,7 +17,7 @@ import { EthereumService } from "@/services/EthereumService";
 type TestResult = { status: "idle" } | { status: "testing" } | { status: "success"; chainId: number } | { status: "error"; message: string };
 
 export function ConfigureRpcDialog() {
-  const { rpcUrl, dialogOpen, setRpcUrl, setDialogOpen } = useConfigStore();
+  const { rpcUrl, dialogOpen, use4byte, setRpcUrl, setDialogOpen, setUse4byte } = useConfigStore();
   const [draft, setDraft] = useState(rpcUrl);
   const [testResult, setTestResult] = useState<TestResult>({ status: "idle" });
 
@@ -76,6 +76,27 @@ export function ConfigureRpcDialog() {
                 if (e.key === "Enter") void handleTest();
               }}
             />
+          </div>
+
+          <div className="grid gap-2">
+            <div className="flex items-center gap-2">
+              <input
+                id="use-4byte"
+                type="checkbox"
+                checked={use4byte}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUse4byte(e.target.checked)}
+                className="h-4 w-4 rounded border-input accent-primary"
+              />
+              <Label htmlFor="use-4byte">Resolve unknown events via 4byte.directory</Label>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              When enabled, unknown event signatures are looked up on{" "}
+              <a href="https://www.4byte.directory" target="_blank" rel="noreferrer" className="underline hover:text-foreground">
+                4byte.directory
+              </a>{" "}
+              Improves readability for interactions with any smart contract, 
+              by resolving human-readable names for unknown event signatures.
+            </p>
           </div>
 
           {testResult.status === "testing" && (
