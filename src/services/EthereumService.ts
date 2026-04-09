@@ -97,12 +97,6 @@ export class EthereumService {
     }
   }
 
-  async getClientVersion(): Promise<string> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result: any = await this.client.request({ method: "web3_clientVersion" as any });
-    return String(result);
-  }
-
   async testConnection(): Promise<{ success: boolean; chainId?: number; error?: string }> {
     try {
       const chainId = await this.client.getChainId();

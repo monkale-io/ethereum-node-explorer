@@ -6,6 +6,8 @@ import type { NodeStatus } from "@/types/ethereum";
 
 const POLL_MS = 3000;
 const BLOCK_COUNT = 10;
+// keep the highest observed latency for this many ms before it expires
+const LATENCY_PEAK_TTL_MS = 60_000;
 
 export interface DashboardLiveState {
   latestBlockNumber: bigint | null;
@@ -30,6 +32,8 @@ export function useDashboardLive(): DashboardLiveState {
   const rpcUrl = useConfigStore((s) => s.rpcUrl);
   const [state, setState] = useState<DashboardLiveState>(emptyState);
   const mounted = useRef(true);
+  // [latencyMs, expiresAt] pairs — we expose the max across all unexpired entries
+  const latencySamples = useRef<Array<[number, number]>>([]);
 
   const tick = useCallback(async () => {
     if (!eth) return;
@@ -38,12 +42,19 @@ export function useDashboardLive(): DashboardLiveState {
       loading: prev.blocks.length === 0 && !prev.error,
     }));
     try {
-      const [latest, chainId, syncStatus, clientVersion, peerCount] =
+      const t0 = performance.now();
+      const latest = await eth.getLatestBlockNumber();
+      const rawLatency = Math.round(performance.now() - t0);
+
+      const now = Date.now();
+      latencySamples.current = latencySamples.current.filter(([, exp]) => exp > now);
+      latencySamples.current.push([rawLatency, now + LATENCY_PEAK_TTL_MS]);
+      const rpcLatencyMs = Math.max(...latencySamples.current.map(([ms]) => ms));
+
+      const [chainId, syncStatus, peerCount] =
         await Promise.all([
-          eth.getLatestBlockNumber(),
           eth.getChainId().catch(() => null),
           eth.getSyncStatus().catch(() => null),
-          eth.getClientVersion().catch(() => null),
           eth.getPeerCount().catch(() => null),
         ]);
 
@@ -57,10 +68,10 @@ export function useDashboardLive(): DashboardLiveState {
       const status: NodeStatus = {
         isConnected: chainId !== null,
         chainId,
-        clientVersion,
         peerCount,
         syncStatus,
         latestBlockNumber: latest,
+        rpcLatencyMs,
       };
 
       if (mounted.current) {
@@ -86,6 +97,7 @@ export function useDashboardLive(): DashboardLiveState {
 
   useEffect(() => {
     mounted.current = true;
+    latencySamples.current = [];
     if (!eth || !rpcUrl) {
       setState({
         ...emptyState,

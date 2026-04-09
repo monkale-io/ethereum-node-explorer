@@ -7,8 +7,8 @@ export interface SyncStatus {
 export interface NodeStatus {
   isConnected: boolean;
   chainId: number | null;
-  clientVersion: string | null;
   peerCount: number | null;
   syncStatus: SyncStatus | false | null;
   latestBlockNumber: bigint | null;
+  rpcLatencyMs: number | null;
 }

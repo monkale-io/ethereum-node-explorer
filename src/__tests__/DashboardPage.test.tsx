@@ -70,10 +70,10 @@ describe("DashboardPage", () => {
       status: {
         isConnected: true,
         chainId: 1,
-        clientVersion: "Geth/1.0",
         peerCount: 10,
         syncStatus: false,
         latestBlockNumber: 100n,
+        rpcLatencyMs: 15,
       },
       error: null,
       loading: false,
@@ -84,7 +84,6 @@ describe("DashboardPage", () => {
     
     // Check NodeStatusCard elements
     expect(screen.getByText(/Node Status/i)).toBeInTheDocument();
-    expect(screen.getByText(/Geth\/1.0/i)).toBeInTheDocument();
     expect(screen.getByText(/Connected/i)).toBeInTheDocument();
 
     // Check LatestBlocksCard elements

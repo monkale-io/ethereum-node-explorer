@@ -1,4 +1,5 @@
-import { Activity, Users, Server, Link2, Radio } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Activity, Users, Link2, Radio, Timer } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,12 +14,25 @@ export interface NodeStatusCardProps {
   lastUpdated: number | null;
 }
 
-function formatRelativeTime(ts: number): string {
+function relativeTime(ts: number): string {
   const s = Math.floor((Date.now() - ts) / 1000);
-  if (s < 2) return "just now";
+  if (s < 5) return "just now";
   if (s < 60) return `${s}s ago`;
   const m = Math.floor(s / 60);
   return `${m}m ago`;
+}
+
+function useRelativeTime(ts: number | null): string {
+  const [label, setLabel] = useState(() => (ts !== null ? relativeTime(ts) : ""));
+  useEffect(() => {
+    if (ts === null) return;
+    const id = setInterval(() => setLabel(relativeTime(ts)), 5000);
+    return () => clearInterval(id);
+  }, [ts]);
+  // keep label in sync when ts changes (new poll tick)
+  const current = ts !== null ? relativeTime(ts) : "";
+  if (current !== label) setLabel(current);
+  return label;
 }
 
 export function NodeStatusCard({
@@ -27,6 +41,7 @@ export function NodeStatusCard({
   error,
   lastUpdated,
 }: NodeStatusCardProps) {
+  const updatedLabel = useRelativeTime(lastUpdated);
   if (error) {
     return (
       <Card className="card-elevated motion-safe:transition-shadow motion-safe:duration-200 hover:shadow-md">
@@ -89,7 +104,7 @@ export function NodeStatusCard({
               className={cn("h-3 w-3 text-green-500 motion-safe:animate-pulse")}
               aria-hidden
             />
-            <span>Updated {formatRelativeTime(lastUpdated)}</span>
+            <span>Updated {updatedLabel}</span>
           </p>
         )}
       </CardHeader>
@@ -118,19 +133,19 @@ export function NodeStatusCard({
             </dd>
           </div>
           <div className="flex items-center justify-between">
-            <dt className="flex items-center gap-2 text-muted-foreground">
-              <Server className="h-4 w-4" /> Client
-            </dt>
-            <dd className="font-medium truncate max-w-[200px]">
-              {status.clientVersion ?? "—"}
-            </dd>
-          </div>
-          <div className="flex items-center justify-between">
             <dt className="text-muted-foreground">Latest Block</dt>
             <dd className="font-mono font-medium">
               {status.latestBlockNumber !== null
                 ? `#${status.latestBlockNumber.toLocaleString()}`
                 : "—"}
+            </dd>
+          </div>
+          <div className="flex items-center justify-between">
+            <dt className="flex items-center gap-2 text-muted-foreground">
+              <Timer className="h-4 w-4" /> RPC Latency
+            </dt>
+            <dd className="font-mono font-medium">
+              {status.rpcLatencyMs !== null ? `${status.rpcLatencyMs} ms` : "—"}
             </dd>
           </div>
         </dl>

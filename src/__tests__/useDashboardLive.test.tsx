@@ -34,7 +34,6 @@ describe("useDashboardLive", () => {
       getLatestBlockNumber: vi.fn().mockResolvedValue(100n),
       getChainId: vi.fn().mockResolvedValue(1),
       getSyncStatus: vi.fn().mockResolvedValue(false),
-      getClientVersion: vi.fn().mockResolvedValue("Geth/v1.0.0"),
       getPeerCount: vi.fn().mockResolvedValue(10),
       getBlock: vi.fn().mockImplementation((n) => Promise.resolve({ number: n, hash: `0x${n}` })),
     };
@@ -54,6 +53,7 @@ describe("useDashboardLive", () => {
     expect(result.current.blocks.length).toBe(10);
     expect(result.current.status?.isConnected).toBe(true);
     expect(result.current.status?.chainId).toBe(1);
+    expect(result.current.status?.rpcLatencyMs).toBeTypeOf("number");
   });
 
   it("handles errors smoothly", async () => {
@@ -61,7 +61,6 @@ describe("useDashboardLive", () => {
       getLatestBlockNumber: vi.fn().mockRejectedValue(new Error("RPC Error")),
       getChainId: vi.fn().mockRejectedValue(new Error("RPC Error")),
       getSyncStatus: vi.fn().mockResolvedValue(false),
-      getClientVersion: vi.fn().mockResolvedValue("Geth/v1.0.0"),
       getPeerCount: vi.fn().mockResolvedValue(10),
       getBlock: vi.fn().mockResolvedValue({}),
     };

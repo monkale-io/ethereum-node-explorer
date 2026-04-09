@@ -39,8 +39,6 @@ vi.mock("viem", async () => {
       request: vi.fn().mockImplementation(({ method }: { method: string }) => {
         if (method === "eth_syncing") return Promise.resolve(false);
         if (method === "net_peerCount") return Promise.resolve("0x19");
-        if (method === "web3_clientVersion")
-          return Promise.resolve("Geth/v1.13.0");
         return Promise.resolve(null);
       }),
     })),
@@ -83,11 +81,6 @@ describe("EthereumService", () => {
   it("getPeerCount returns a number", async () => {
     const peers = await service.getPeerCount();
     expect(peers).toBe(25);
-  });
-
-  it("getClientVersion returns a string", async () => {
-    const version = await service.getClientVersion();
-    expect(version).toBe("Geth/v1.13.0");
   });
 
   it("getTransaction returns a transaction", async () => {
