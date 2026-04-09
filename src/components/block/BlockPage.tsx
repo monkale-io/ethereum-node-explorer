@@ -142,9 +142,13 @@ export function BlockPage() {
               {block.baseFeePerGas !== undefined && block.baseFeePerGas !== null && (
                 <DetailRow label="Base Fee" value={`${block.baseFeePerGas.toLocaleString()} wei`} />
               )}
-              <DetailRow label="Difficulty" value={block.difficulty?.toLocaleString() ?? "—"} />
+              {block.difficulty !== undefined && block.difficulty !== 0n && (
+                <DetailRow label="Difficulty" value={block.difficulty.toLocaleString()} />
+              )}
               <DetailRow label="Size" value={block.size !== undefined ? `${block.size.toLocaleString()} bytes` : "—"} />
-              <DetailRow label="Nonce" value={block.nonce ?? "—"} mono />
+              {block.nonce !== undefined && block.nonce !== "0x0000000000000000" && (
+                <DetailRow label="Nonce" value={block.nonce} mono />
+              )}
               <DetailRow label="Transactions" value={`${txHashes.length} transaction${txHashes.length !== 1 ? "s" : ""}`} />
               {block.extraData && block.extraData !== "0x" && (
                 <DetailRow label="Extra Data" value={block.extraData} mono />
