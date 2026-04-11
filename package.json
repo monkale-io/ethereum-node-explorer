@@ -48,7 +48,7 @@
     "globals": "^17.4.0",
     "hardhat": "^3.3.0",
     "jsdom": "^29.0.1",
-    "start-server-and-test": "^3.0.0",
+    "start-server-and-test": "^3.0.2",
     "tailwindcss": "^4.2.2",
     "ts-node": "^10.9.2",
     "typescript": "~5.7.0",
