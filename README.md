@@ -58,10 +58,6 @@ To make the app always reachable you can help to pin the current version.
 
 </details>
 
-### Donations
-
-ERC20 `monkale.eth`
-
 ## Contact
 
 * [Email - monkaleio@gmail.com](mailto:monkaleio@gmail.com)
